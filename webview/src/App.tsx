@@ -89,7 +89,7 @@ export const App: React.FC = () => {
           {state.isAnalyzing && <span>• Analyzing project...</span>}
         </div>
         <div className="statusbar-right">
-          <span>Project DNA v0.1.0 • Foundation Shell</span>
+          <span>Project DNA v0.1.3 • Foundation Shell</span>
         </div>
       </footer>
     </div>

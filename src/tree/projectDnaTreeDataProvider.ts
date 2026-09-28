@@ -52,6 +52,8 @@ export class ProjectDnaTreeDataProvider implements vscode.TreeDataProvider<DnaTr
     const sections: Array<{ label: string; tabId: NavigationTab; icon: string }> = [
       { label: 'Overview', tabId: 'overview', icon: 'dashboard' },
       { label: 'Structure', tabId: 'structure', icon: 'folder-opened' },
+      { label: 'Architecture', tabId: 'architecture', icon: 'layers' },
+      { label: 'Graph', tabId: 'graph', icon: 'type-hierarchy' },
       { label: 'Technology', tabId: 'technology', icon: 'symbol-namespace' },
       { label: 'Dependencies', tabId: 'dependencies', icon: 'package' },
       { label: 'APIs', tabId: 'apis', icon: 'symbol-interface' },

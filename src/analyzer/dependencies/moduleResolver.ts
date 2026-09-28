@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as ts from 'typescript';
 import { RawImportSpecifier, ResolvedImport } from './contracts';
 
 export class ModuleResolver {
@@ -350,6 +349,81 @@ export class ModuleResolver {
     }
   }
 
+  /**
+   * Parses a tsconfig/jsconfig JSON file that may contain comments and trailing commas.
+   * Uses string-aware stripping so glob patterns like @/* are not confused with comments.
+   */
+  private parseJsonWithComments(filePath: string): Record<string, unknown> | null {
+    try {
+      const content = fs.readFileSync(filePath, 'utf8');
+      let result = '';
+      let i = 0;
+      const len = content.length;
+
+      while (i < len) {
+        const ch = content[i];
+        const next = i + 1 < len ? content[i + 1] : '';
+
+        // Quoted string (single or double) - preserve content intact
+        if (ch === '"' || ch === "'") {
+          let end = i + 1;
+          while (end < len) {
+            if (content[end] === '\\') {
+              end += 2;
+              continue;
+            }
+            if (content[end] === ch) {
+              end++;
+              break;
+            }
+            end++;
+          }
+          result += content.slice(i, end);
+          i = end;
+          continue;
+        }
+
+        // Block comment /* ... */
+        if (ch === '/' && next === '*') {
+          let end = i + 2;
+          while (end < len) {
+            if (content[end] === '*' && end + 1 < len && content[end + 1] === '/') {
+              end += 2;
+              break;
+            }
+            end++;
+          }
+          i = end;
+          continue;
+        }
+
+        // Line comment // ...
+        if (ch === '/' && next === '/') {
+          let end = i + 2;
+          while (end < len && content[end] !== '\n') {
+            end++;
+          }
+          i = end;
+          continue;
+        }
+
+        result += ch;
+        i++;
+      }
+
+      // Remove trailing commas before } or ]
+      let prev = '';
+      do {
+        prev = result;
+        result = result.replace(/,\s*([\]}])/g, '$1');
+      } while (result !== prev);
+
+      return JSON.parse(result);
+    } catch {
+      return null;
+    }
+  }
+
   private loadConfigFileWithExtends(
     configPath: string,
     visited = new Set<string>()
@@ -364,21 +438,16 @@ export class ModuleResolver {
     visited.add(normalized);
 
     try {
-      // 1. Try TypeScript compiler API parser (natively handles comments, trailing commas, single quotes)
-      const readResult = ts.readConfigFile(normalized, (p) => fs.readFileSync(p, 'utf8'));
+      // Parse JSON with comments and trailing commas (no external dependency required)
+      const parsed = this.parseJsonWithComments(normalized);
+      if (!parsed) {
+        return null;
+      }
+
       let config: {
         compilerOptions?: { baseUrl?: string; paths?: Record<string, string[]> };
         extends?: string;
-      } = {};
-
-      if (!readResult.error && readResult.config) {
-        config = readResult.config;
-      } else {
-        // Fallback: robust regex cleaning for comments & trailing commas
-        const raw = fs.readFileSync(normalized, 'utf8');
-        const cleaned = raw.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '').replace(/,\s*([\]}])/g, '$1');
-        config = JSON.parse(cleaned);
-      }
+      } = parsed as typeof config;
 
       // 2. Resolve extends if present
       if (typeof config.extends === 'string') {
