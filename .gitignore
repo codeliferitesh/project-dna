@@ -1,0 +1,55 @@
+# Build & package outputs
+dist/
+dist-test/
+out/
+build/
+*.vsix
+
+# Node dependencies
+node_modules/
+**/node_modules/
+package-lock.json
+**/package-lock.json
+.npm/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Environment variables & secrets
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.cert
+*.secret
+credentials*
+
+# Test coverage & caches
+coverage/
+.nyc_output/
+.turbo/
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories and files
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.tmp
+*.bak

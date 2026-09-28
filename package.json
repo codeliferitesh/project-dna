@@ -1,0 +1,123 @@
+{
+  "name": "project-dna",
+  "displayName": "Project DNA",
+  "description": "Understand your entire codebase through a living project architecture map.",
+  "version": "0.1.0",
+  "publisher": "ProjectDNA",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "architecture",
+    "codebase",
+    "analyzer",
+    "visualization",
+    "dependencies",
+    "project-dna"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "project-dna-sidebar",
+          "title": "Project DNA",
+          "icon": "media/dna-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "project-dna-sidebar": [
+        {
+          "id": "project-dna-explorer",
+          "name": "🧬 Project DNA",
+          "type": "tree"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "project-dna.openDashboard",
+        "title": "Project DNA: Open Dashboard",
+        "category": "Project DNA",
+        "icon": "$(layout-dashboard)"
+      },
+      {
+        "command": "project-dna.analyzeProject",
+        "title": "Project DNA: Analyze Project",
+        "category": "Project DNA",
+        "icon": "$(play)"
+      },
+      {
+        "command": "project-dna.refreshAnalysis",
+        "title": "Project DNA: Refresh Analysis",
+        "category": "Project DNA",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "project-dna.openDashboard",
+          "when": "view == project-dna-explorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "project-dna.analyzeProject",
+          "when": "view == project-dna-explorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "project-dna.refreshAnalysis",
+          "when": "view == project-dna-explorer",
+          "group": "navigation@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "project-dna.openDashboard"
+        },
+        {
+          "command": "project-dna.analyzeProject"
+        },
+        {
+          "command": "project-dna.refreshAnalysis"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile:ext": "tsc -p ./",
+    "watch:ext": "tsc -watch -p ./",
+    "build:webview": "npm --prefix webview run build",
+    "watch:webview": "npm --prefix webview run watch",
+    "build": "npm run compile:ext && npm run build:webview",
+    "watch": "concurrently \"npm run watch:ext\" \"npm run watch:webview\"",
+    "lint": "eslint src --ext ts",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"webview/src/**/*.{ts,tsx,css}\" \"test/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"webview/src/**/*.{ts,tsx,css}\" \"test/**/*.ts\"",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/test/**/*.test.js",
+    "package": "vsce package --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  }
+}
