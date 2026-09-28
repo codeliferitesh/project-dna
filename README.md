@@ -71,34 +71,60 @@ Project DNA is a developer tool for Visual Studio Code that performs local stati
 
 ---
 
-## 🚀 Installation & Usage
+## 🚀 How to Use
 
-### Installing from VSIX
-1. Download the `project-dna-0.1.0.vsix` package.
-2. In VS Code, open the Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`).
-3. Click the `...` menu in the top-right corner of the Extensions view and select **Install from VSIX...**.
-4. Select the `.vsix` file to install.
+Project DNA is installed directly from the Visual Studio Code Marketplace.
 
-### Running Project DNA
-1. Open any workspace folder in Visual Studio Code.
-2. Click the **🧬 Project DNA** icon in the Activity Bar, or press `Ctrl+Shift+P` (`Cmd+Shift+P` on macOS) and run:
+1. **Install Project DNA** from the VS Code Marketplace (Search for `Project DNA` in the Extensions view).
+2. **Open any project or workspace** in VS Code.
+3. **Open the Project DNA view** by clicking the **🧬 Project DNA** icon in the Activity Bar.
+4. **Open the Dashboard** by clicking the dashboard action or pressing `Ctrl+Shift+P` (`Cmd+Shift+P` on macOS) and running:
    ```
    Project DNA: Open Dashboard
    ```
-3. Click **Analyze Project** in the header or overview screen.
-4. Navigate through the sidebar tabs to explore your architecture.
+5. **Click "Analyze Project"** in the navigation header or overview screen.
+6. **Wait for the analysis to complete** (analyses run entirely locally in seconds).
+7. **Explore the available sections** to understand your project's architecture, dependencies, and structure.
 
 ---
 
-## ⚠️ Known Limitations of Static Analysis
+## 🔍 What You Can Explore
 
-Project DNA performs deterministic static analysis of source files and configurations. Please be aware of the following static analysis limitations:
-* **Dynamic Route Definitions:** Dynamically computed route strings (e.g. `app.use('/api/' + getPrefix(), ...)`) are marked as dynamic/computed.
-* **Runtime Imports:** Dynamic variable imports (e.g. `import(dynamicPath)`) cannot be statically resolved without runtime execution.
-* **Polyglot Monorepo Depth:** Deep nested workspaces with custom non-standard compilers may require standard `tsconfig.json` or `jsconfig.json` path mappings for full alias resolution.
+### 📊 Overview
+Get an instant command center summary of your project — including file counts, architectural layers, key technologies, structural hotspots, circular dependencies, and unresolved imports.
+
+### 🏛️ Architecture
+Inspect your project's architectural structure categorized into standard tiers (Presentation, Routing, Application, Domain, Services, Infrastructure, Configuration) and module roles (Pages, Components, Custom Hooks, Contexts, Services, Models, Repositories).
+
+### 📦 Dependencies
+Understand internal import relationships between files and modules, inspect fan-in / fan-out metrics, browse external package usage, and detect direct or multi-hop dependency cycles.
+
+### 🕸️ Graph
+Visualize your entire codebase through an interactive, zoomable architecture graph with layer grouping, cycle highlighting, and neighborhood dependency isolation.
+
+### 🌐 APIs
+Explore detected server API routes and HTTP endpoints across supported frameworks (Next.js App & Pages Router, Express, FastAPI, Flask, and Spring Boot) with interactive HTTP method filters.
+
+### ⚙️ Configuration
+Audit all categorized project manifests and configuration files across package managers, compilers, bundlers, linters, and deployment targets.
+
+### 🔬 Technology
+Identify evidence-backed programming languages, frameworks, styling solutions, databases, and build tools detected across your workspace.
+
+### 🔐 Environment Variables
+Audit referenced environment variables and their scopes (public client vs private server) safely without extracting or logging sensitive secret values.
+
+---
+
+## 🔗 Links & Repository
+
+* **GitHub Repository:** [https://github.com/codeliferitesh/project-dna](https://github.com/codeliferitesh/project-dna)
+* **Issue Tracker:** [https://github.com/codeliferitesh/project-dna/issues](https://github.com/codeliferitesh/project-dna/issues)
+* **Marketplace:** [https://marketplace.visualstudio.com/items?itemName=stacksolve.project-dna](https://marketplace.visualstudio.com/items?itemName=stacksolve.project-dna)
 
 ---
 
 ## 📄 License
 
 This project is licensed under the MIT License (refer to the included LICENSE file).
+
