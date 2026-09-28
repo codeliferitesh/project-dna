@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="media/icon.png" alt="Project DNA Logo" width="160" />
+</p>
+
 # 🧬 Project DNA
 
 > **Understand your entire codebase through a living project architecture map.**

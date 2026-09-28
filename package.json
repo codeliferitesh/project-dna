@@ -13,6 +13,7 @@
     "url": "https://github.com/codeliferitesh/project-dna/issues"
   },
   "license": "MIT",
+  "icon": "media/icon.png",
   "engines": {
     "vscode": "^1.85.0"
   },
