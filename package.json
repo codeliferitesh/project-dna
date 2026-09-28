@@ -3,7 +3,15 @@
   "displayName": "Project DNA",
   "description": "Understand your entire codebase through a living project architecture map.",
   "version": "0.1.0",
-  "publisher": "ProjectDNA",
+  "publisher": "stacksolve",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeliferitesh/project-dna.git"
+  },
+  "homepage": "https://github.com/codeliferitesh/project-dna#readme",
+  "bugs": {
+    "url": "https://github.com/codeliferitesh/project-dna/issues"
+  },
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
